@@ -92,7 +92,7 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
             latlng = LatLng(it.latitude, it.longitude)
             GlideApp.with(view.imageView_Evento.context)
                 .load(it.image)
-                .error(R.drawable.ic_calendar_today_black_24dp)
+                .error(R.drawable.ic_event_white_24dp)
                 .into(view.imageView_Evento)
         }
     }

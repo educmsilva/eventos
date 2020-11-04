@@ -45,7 +45,7 @@ class EventosListAdapter(
             val eventPrice = itemView.textView_eventPrice
             GlideApp.with(image.context)
                 .load(event.image)
-                .error(R.drawable.ic_calendar_today_black_24dp)
+                .error(R.drawable.ic_event_white_24dp)
                 .into(image)
 
             eventDate.text = MaskUtil.formatDateWithTime(event.date)

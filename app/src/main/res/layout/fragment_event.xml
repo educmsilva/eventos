@@ -7,7 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorLight">
 
         <ImageView
             android:id="@+id/imageView_Evento"
@@ -18,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_event_black_24dp" />
+            app:srcCompat="@drawable/ic_event_white_24dp" />
 
         <TextView
             android:id="@+id/textView_eventDate"
@@ -78,9 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="@dimen/textview_margin_start"
-            android:layout_marginBottom="@dimen/textview_margin_top"
             android:layout_marginTop="@dimen/textview_margin_top"
             android:layout_marginEnd="@dimen/textview_margin_start"
+            android:layout_marginBottom="@dimen/textview_margin_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
