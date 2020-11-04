@@ -13,4 +13,6 @@
     <dimen name="textview_width">150dp</dimen>
     <dimen name="textView_value_width">200dp</dimen>
     <dimen name="toolbar_margin">10dp</dimen>
+    <dimen name="button_tools_margin">5dp</dimen>
+    <dimen name="button_tools_size">60dp</dimen>
 </resources>

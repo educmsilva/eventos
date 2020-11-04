@@ -89,6 +89,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_eventDescription" />
 
+        <ImageButton
+            android:id="@+id/imageCheckInButton"
+            android:layout_width="@dimen/button_tools_size"
+            android:layout_height="@dimen/button_tools_size"
+            android:layout_marginStart="@dimen/button_tools_margin"
+            android:contentDescription="@string/button_checkin_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView_Evento"
+            app:srcCompat="@drawable/ic_add_task_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/imageShareButton"
+            android:layout_width="@dimen/button_tools_size"
+            android:layout_height="@dimen/button_tools_size"
+            android:layout_marginStart="@dimen/button_tools_margin"
+            android:contentDescription="@string/button_checkin_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageCheckInButton"
+            app:srcCompat="@drawable/ic_share_black_24dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
