@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.bumptech.glide.Glide
 import com.example.events.R
+import com.example.events.util.glide.GlideApp
 import com.example.events.util.model.Eventos
 import kotlinx.android.synthetic.main.event_item.view.*
 
@@ -42,9 +42,9 @@ class EventosListAdapter(
             val eventDate = itemView.textView_eventDate
             val eventTitle = itemView.textView_eventTitle
             val eventPrice = itemView.textView_eventPrice
-
-            Glide.with(image.context)
+            GlideApp.with(image.context)
                 .load(event.image)
+                .error(R.drawable.ic_calendar_today_black_24dp)
                 .into(image)
 
             eventDate.text = event.date.toString()

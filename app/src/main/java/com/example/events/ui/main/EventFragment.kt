@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.bumptech.glide.Glide
 import com.example.events.R
+import com.example.events.util.glide.GlideApp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -89,8 +89,9 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
             view.textView_eventPrice.text = it.price.toString()
             view.textView_eventDescription.text = it.description
             latlng = LatLng(it.latitude, it.longitude)
-            Glide.with(view.imageView_Evento.context)
+            GlideApp.with(view.imageView_Evento.context)
                 .load(it.image)
+                .error(R.drawable.ic_calendar_today_black_24dp)
                 .into(view.imageView_Evento)
         }
     }
