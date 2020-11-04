@@ -15,6 +15,7 @@ import com.example.events.util.glide.GlideApp
 import com.example.events.util.model.Eventos
 import kotlinx.android.synthetic.main.event_item.view.*
 
+
 class EventosListAdapter(
     private val events: List<Eventos>,
     private val context: Context,
@@ -24,7 +25,7 @@ class EventosListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val evento = events[position]
         holder.let {
-            it.bindView(evento)
+            it.bindView(evento, context)
             it.itemView.setOnClickListener {
                 onItemClickListener(evento, position)
             }
@@ -41,7 +42,7 @@ class EventosListAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(event: Eventos) {
+        fun bindView(event: Eventos, context: Context) {
             val image = itemView.imageView_Evento
             val eventDate = itemView.textView_eventDate
             val eventTitle = itemView.textView_eventTitle
@@ -49,7 +50,7 @@ class EventosListAdapter(
 
             val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
 
-            GlideApp.with(image.context)
+            GlideApp.with(context)
                 .load(event.image)
                 .transition(DrawableTransitionOptions.withCrossFade(factory))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -57,9 +58,17 @@ class EventosListAdapter(
                 .error(R.drawable.ic_event_white_24dp)
                 .into(image)
 
-            eventDate.text = MaskUtil.formatDateWithTime(event.date)
+            val entradaPlaceHolder: String =
+                context.getString(R.string.entrada_placeholder) + "\n" + MaskUtil.formatPrice(event.price)
+
+            val dataPlaceHolder: String =
+                context.getString(R.string.date_placeholder) + "\n" + MaskUtil.formatDateWithTime(
+                    event.date
+                )
+
+            eventDate.text = dataPlaceHolder
             eventTitle.text = event.title
-            eventPrice.text = MaskUtil.formatPrice(event.price)
+            eventPrice.text = entradaPlaceHolder
         }
     }
 }

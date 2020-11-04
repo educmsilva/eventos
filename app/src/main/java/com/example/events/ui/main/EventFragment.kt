@@ -88,9 +88,16 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
         val evento =
             viewModel.getEventosLive().value?.find { it.id == arguments?.getString("EVENT_ID") }
         evento?.let {
-            view.textView_eventDate.text = MaskUtil.formatDateWithTime(it.date)
+
+            val entradaPlaceHolder: String =
+                getString(R.string.entrada_placeholder) + "\n" + MaskUtil.formatPrice(it.price)
+
+            val dataPlaceHolder: String =
+                getString(R.string.date_placeholder) + "\n" + MaskUtil.formatDateWithTime(it.date)
+
+            view.textView_eventDate.text = dataPlaceHolder
             view.textView_eventTitle.text = it.title
-            view.textView_eventPrice.text = MaskUtil.formatPrice(it.price)
+            view.textView_eventPrice.text = entradaPlaceHolder
             view.textView_eventDescription.text = it.description
             latlng = LatLng(it.latitude, it.longitude)
 
