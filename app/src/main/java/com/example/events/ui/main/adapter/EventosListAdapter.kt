@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.events.R
+import com.example.events.util.formatter.MaskUtil
 import com.example.events.util.glide.GlideApp
 import com.example.events.util.model.Eventos
 import kotlinx.android.synthetic.main.event_item.view.*
@@ -47,9 +48,9 @@ class EventosListAdapter(
                 .error(R.drawable.ic_calendar_today_black_24dp)
                 .into(image)
 
-            eventDate.text = event.date.toString()
+            eventDate.text = MaskUtil.formatDateWithTime(event.date)
             eventTitle.text = event.title
-            eventPrice.text = event.price.toString()
+            eventPrice.text = MaskUtil.formatPrice(event.price)
         }
     }
 }

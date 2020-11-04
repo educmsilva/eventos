@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.events.R
+import com.example.events.util.formatter.MaskUtil
 import com.example.events.util.glide.GlideApp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -84,9 +85,9 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
         val evento =
             viewModel.getEventosLive().value?.find { it.id == arguments?.getString("EVENT_ID") }
         evento?.let {
-            view.textView_eventDate.text = it.date.toString()
+            view.textView_eventDate.text = MaskUtil.formatDateWithTime(it.date)
             view.textView_eventTitle.text = it.title
-            view.textView_eventPrice.text = it.price.toString()
+            view.textView_eventPrice.text = MaskUtil.formatPrice(it.price)
             view.textView_eventDescription.text = it.description
             latlng = LatLng(it.latitude, it.longitude)
             GlideApp.with(view.imageView_Evento.context)
