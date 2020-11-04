@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.example.events.R
 import com.example.events.util.formatter.MaskUtil
 import com.example.events.util.glide.GlideApp
@@ -43,8 +46,14 @@ class EventosListAdapter(
             val eventDate = itemView.textView_eventDate
             val eventTitle = itemView.textView_eventTitle
             val eventPrice = itemView.textView_eventPrice
+
+            val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+
             GlideApp.with(image.context)
                 .load(event.image)
+                .transition(DrawableTransitionOptions.withCrossFade(factory))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.color.colorLight)
                 .error(R.drawable.ic_event_white_24dp)
                 .into(image)
 

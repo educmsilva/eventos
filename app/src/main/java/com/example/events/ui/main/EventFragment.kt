@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.example.events.R
 import com.example.events.util.formatter.MaskUtil
 import com.example.events.util.glide.GlideApp
@@ -90,8 +93,14 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
             view.textView_eventPrice.text = MaskUtil.formatPrice(it.price)
             view.textView_eventDescription.text = it.description
             latlng = LatLng(it.latitude, it.longitude)
+
+            val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+
             GlideApp.with(view.imageView_Evento.context)
                 .load(it.image)
+                .transition(withCrossFade(factory))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.color.colorLight)
                 .error(R.drawable.ic_event_white_24dp)
                 .into(view.imageView_Evento)
         }
