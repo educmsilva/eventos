@@ -64,8 +64,7 @@ class CheckInFragment : DialogFragment() {
     }
 
     private fun checkIn(checkInRequest: CheckInRequest) {
-        val evento =
-            viewModel.getEventosLive().value?.find { it.id == arguments?.getString("EVENT_ID") }
+        val evento = arguments?.getString("EVENT_ID")?.let { viewModel.findEvent(it) }
         evento?.let {
             this.checkInRequest.eventId = it.id
             viewModel.updateCheckinUserdata(this.checkInRequest)

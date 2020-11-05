@@ -1,5 +1,6 @@
 package com.example.events.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -129,8 +130,7 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
     }
 
     private fun setupView(view: View) {
-        val evento =
-            viewModel.getEventosLive().value?.find { it.id == arguments?.getString("EVENT_ID") }
+        val evento = arguments?.getString("EVENT_ID")?.let { viewModel.findEvent(it) }
         evento?.let {
 
             checkInRequest.eventId = it.id
@@ -164,7 +164,45 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
             CheckInFragment.newInstance(checkInRequest.eventId)
                 .show(parentFragmentManager, CheckInFragment.TAG)
         }
+        imageShareButton.setOnClickListener {
+            shareContent()
+        }
     }
+
+    private fun shareContent() {
+        val evento = arguments?.getString("EVENT_ID")?.let { viewModel.findEvent(it) }
+        if (evento != null) {
+
+            val entradaPlaceHolder: String =
+                getString(R.string.entrada_placeholder) + "\n" + MaskUtil.formatPrice(evento.price)
+
+            val dataPlaceHolder: String =
+                getString(R.string.date_placeholder) + "\n" + MaskUtil.formatDateWithTime(
+                    evento.date
+                )
+
+            val location =
+                "https://www.google.com/maps/?q=" + evento.latitude + "," + evento.longitude
+
+            val eventMessage = dataPlaceHolder + " \n\n " +
+                    evento.title + " \n " +
+                    entradaPlaceHolder + " \n\n " +
+                    evento.description + " \n\n " + "Acesse a localização do evento no link abaixo:" + " \n\n " +
+                    location
+
+
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, eventMessage)
+                type = "text/plain"
+                setPackage("com.whatsapp")
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Compartilhar em...")
+            startActivity(shareIntent)
+        }
+    }
+
 
     companion object {
         const val TAG = "SimpleDialog"

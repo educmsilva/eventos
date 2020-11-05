@@ -41,6 +41,12 @@ class EventsViewModel : ViewModel() {
         )
     }
 
+    fun findEvent(eventID: String): Eventos? {
+        val evento =
+            getEventosLive().value?.find { it.id == eventID }
+        return evento
+    }
+
     fun updateCheckinUserdata(checkInRequest: CheckInRequest) {
         this.checkInRequest.postValue(checkInRequest)
     }
