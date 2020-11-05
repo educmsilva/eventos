@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.events.R
@@ -12,7 +13,7 @@ import com.example.events.util.model.CheckInRequest
 import kotlinx.android.synthetic.main.dialog_user_data.*
 
 class CheckInFragment : DialogFragment() {
-    private val viewModel: EventosViewModel by activityViewModels()
+    private val viewModel: EventsViewModel by activityViewModels()
     private lateinit var checkInRequest: CheckInRequest
 
     override fun onCreateView(
@@ -48,9 +49,17 @@ class CheckInFragment : DialogFragment() {
             dismiss()
         }
         imageButtonConfirm.setOnClickListener {
-            checkInRequest.name = userName.text.toString()
-            checkInRequest.email = userEmail.text.toString()
-            checkIn(checkInRequest)
+            if (userName.text.isEmpty() || userEmail.text.isEmpty()) {
+                Toast.makeText(
+                    context,
+                    "Você precisa preencher os campos para fazer o check-in.",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                checkInRequest.name = userName.text.toString()
+                checkInRequest.email = userEmail.text.toString()
+                checkIn(checkInRequest)
+            }
         }
     }
 

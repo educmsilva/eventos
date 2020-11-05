@@ -37,11 +37,14 @@ class EventsWebClient {
             RetrofitInitializer().eventApiService().checkIn(checkInRequest)
 
         call.enqueue(
-            callback({ response ->
-                response?.body()?.let {
-                    success(it)
-                }
-            },
+            callback(
+                { response ->
+                    response?.body()?.let {
+                        success(it)
+                    } ?: response?.code().let {
+                        success(CheckInResponse(it.toString()))
+                    }
+                },
                 { throwable ->
                     throwable?.let {
                         failure(it)

@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_event.view.*
 
 class EventFragment : DialogFragment(), OnMapReadyCallback {
 
-    private val viewModel: EventosViewModel by activityViewModels()
+    private val viewModel: EventsViewModel by activityViewModels()
     private var latlng: LatLng? = null
     private var mapViewEvent: MapView? = null
     private var checkInRequest = CheckInRequest("", "", "")
@@ -105,7 +105,13 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
     private fun showMessageSucessCheckIn(checkInResponse: CheckInResponse?) {
         if (checkInResponse?.code == "200") {
             Toast.makeText(context, "Check-In realizado com sucesso", Toast.LENGTH_LONG).show()
-            viewModel.clearMessages()
+        }
+        if (checkInResponse?.code == "400") {
+            Toast.makeText(
+                context,
+                "Erro ao realizar check-in. Tente mais tarde.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

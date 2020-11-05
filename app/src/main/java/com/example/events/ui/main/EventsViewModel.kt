@@ -8,14 +8,12 @@ import com.example.events.util.model.CheckInRequest
 import com.example.events.util.model.CheckInResponse
 import com.example.events.util.model.Eventos
 
-class EventosViewModel : ViewModel() {
+class EventsViewModel : ViewModel() {
 
-    private val eventosMutableLiveData =
-        MutableLiveData<List<Eventos>?>().apply { value = null }
-    private var checkInRequest = MutableLiveData<CheckInRequest?>().apply { value = null }
-    private val errorMessageLiveData =
-        MutableLiveData<String?>().apply { value = "" }
-    private val checkInLiveData = MutableLiveData<CheckInResponse>().apply { value = null }
+    private val eventosMutableLiveData = MutableLiveData<List<Eventos>?>()
+    private var checkInRequest = MutableLiveData<CheckInRequest?>()
+    private val errorMessageLiveData = MutableLiveData<String?>()
+    private val checkInLiveData = MutableLiveData<CheckInResponse>()
 
     fun getEventosLive(): LiveData<List<Eventos>?> = eventosMutableLiveData
     fun getCheckInRequest(): LiveData<CheckInRequest?> = checkInRequest

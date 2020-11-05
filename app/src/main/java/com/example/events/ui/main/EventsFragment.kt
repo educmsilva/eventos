@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_eventos.*
 
 class EventsFragment : Fragment() {
 
-    private val viewModel: EventosViewModel by activityViewModels()
+    private val viewModel: EventsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
