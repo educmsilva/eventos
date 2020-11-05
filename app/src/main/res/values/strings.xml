@@ -10,6 +10,9 @@
     <string name="entrada_placeholder">Entrada</string>
     <string name="date_placeholder">Data</string>
     <string name="button_checkin_description">Realizar Checkin</string>
-
+    <string name="name_hint">Digite seu nome</string>
+    <string name="email_hint">Digite seu email</string>
+    <string name="button_confirm_checkin">Fazer Check-in</string>
+    <string name="button_cancel">Cancelar</string>
 
 </resources>

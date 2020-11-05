@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.example.events.R
 import com.example.events.util.formatter.MaskUtil
 import com.example.events.util.glide.GlideApp
+import com.example.events.util.model.CheckInRequest
+import com.example.events.util.model.CheckInResponse
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -28,6 +32,7 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
     private val viewModel: EventosViewModel by activityViewModels()
     private var latlng: LatLng? = null
     private var mapViewEvent: MapView? = null
+    private var checkInRequest = CheckInRequest("", "", "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +48,8 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
         mapViewEvent = view.findViewById(R.id.mapView) as MapView
         mapViewEvent!!.onCreate(savedInstanceState)
         mapViewEvent!!.getMapAsync(this)
+        initObservers()
+        configureClickListeners()
     }
 
     override fun onStart() {
@@ -84,10 +91,43 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
         mapViewEvent!!.onSaveInstanceState(outState)
     }
 
+    private fun initObservers() {
+        observerCheckInResponse()
+        observerErrorMessage()
+    }
+
+
+    private fun observerCheckInResponse() {
+        viewModel.getSucessMessageLive()
+            .observe(viewLifecycleOwner, Observer(this::showMessageSucessCheckIn))
+    }
+
+    private fun showMessageSucessCheckIn(checkInResponse: CheckInResponse?) {
+        if (checkInResponse?.code == "200") {
+            Toast.makeText(context, "Check-In realizado com sucesso", Toast.LENGTH_LONG).show()
+            viewModel.clearMessages()
+        }
+    }
+
+    private fun observerErrorMessage() {
+        viewModel.getErrorMessageLive()
+            .observe(viewLifecycleOwner, Observer(this::updateErrorMessage))
+    }
+
+    private fun updateErrorMessage(errorMessage: String?) {
+        if (errorMessage != null) {
+            if (errorMessage.isNotEmpty()) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun setupView(view: View) {
         val evento =
             viewModel.getEventosLive().value?.find { it.id == arguments?.getString("EVENT_ID") }
         evento?.let {
+
+            checkInRequest.eventId = it.id
 
             val entradaPlaceHolder: String =
                 getString(R.string.entrada_placeholder) + "\n" + MaskUtil.formatPrice(it.price)
@@ -110,6 +150,13 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
                 .placeholder(R.color.colorLight)
                 .error(R.drawable.ic_event_white_24dp)
                 .into(view.imageView_Evento)
+        }
+    }
+
+    private fun configureClickListeners() {
+        imageCheckInButton.setOnClickListener {
+            CheckInFragment.newInstance(checkInRequest.eventId)
+                .show(parentFragmentManager, CheckInFragment.TAG)
         }
     }
 
