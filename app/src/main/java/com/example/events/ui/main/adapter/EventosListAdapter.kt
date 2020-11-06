@@ -55,7 +55,7 @@ class EventosListAdapter(
                 .transition(DrawableTransitionOptions.withCrossFade(factory))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.color.colorLight)
-                .error(R.drawable.ic_event_white_24dp)
+                .error(R.mipmap.ic_error_image)
                 .into(image)
 
             val entradaPlaceHolder: String =
