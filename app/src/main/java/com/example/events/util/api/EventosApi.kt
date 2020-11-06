@@ -1,8 +1,7 @@
 package com.example.events.util.api
 
 import com.example.events.util.model.CheckInRequest
-import com.example.events.util.model.CheckInResponse
-import com.example.events.util.model.Eventos
+import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,9 +12,9 @@ interface EventosApi {
     //Fetches busca todos os eventos
     @GET("api/events")
     fun listarEventos(
-    ): Call<List<Eventos>>
+    ): Call<JsonElement>
 
     //Realiza o checkin no evento
     @POST("api/checkin")
-    fun checkIn(@Body checkInRequest: CheckInRequest): Call<CheckInResponse>
+    fun checkIn(@Body checkInRequest: CheckInRequest): Call<JsonElement>
 }

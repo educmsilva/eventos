@@ -3,23 +3,25 @@ package com.example.events.util.client
 import com.example.events.util.RetrofitInitializer
 import com.example.events.util.callback
 import com.example.events.util.model.CheckInRequest
-import com.example.events.util.model.CheckInResponse
-import com.example.events.util.model.Eventos
+import com.google.gson.JsonElement
+import retrofit2.Response
+
 
 class EventsWebClient {
 
     fun listarEventos(
-        success: (events: List<Eventos>) -> Unit,
+        success: (events: Response<JsonElement>) -> Unit,
         failure: (throwable: Throwable) -> Unit
     ) {
         val call = RetrofitInitializer().eventApiService().listarEventos()
 
         call.enqueue(
-            callback({ response ->
-                response?.body()?.let {
-                    success(it)
-                }
-            },
+            callback(
+                { response ->
+                    response?.let {
+                        success(it)
+                    }
+                },
                 { throwable ->
                     throwable?.let {
                         failure(it)
@@ -29,7 +31,7 @@ class EventsWebClient {
     }
 
     fun checkIn(
-        success: (events: CheckInResponse) -> Unit,
+        success: (Response<JsonElement>) -> Unit,
         failure: (throwable: Throwable) -> Unit,
         checkInRequest: CheckInRequest
     ) {
@@ -39,10 +41,8 @@ class EventsWebClient {
         call.enqueue(
             callback(
                 { response ->
-                    response?.body()?.let {
+                    response?.let {
                         success(it)
-                    } ?: response?.code().let {
-                        success(CheckInResponse(it.toString()))
                     }
                 },
                 { throwable ->
