@@ -37,4 +37,17 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+    <style name="CustomCardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/card_rouded</item>
+        <item name="cornerSizeTopLeft">@dimen/card_rouded</item>
+        <item name="cornerSizeBottomRight">@dimen/card_rouded</item>
+        <item name="cornerSizeBottomLeft">@dimen/card_rouded</item>
+    </style>
+
 </resources>

@@ -16,4 +16,5 @@
     <dimen name="button_tools_margin">5dp</dimen>
     <dimen name="button_tools_size">60dp</dimen>
     <dimen name="card_margin_top">15dp</dimen>
+    <dimen name="card_rouded">15dp</dimen>
 </resources>
