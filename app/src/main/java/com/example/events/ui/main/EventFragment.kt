@@ -195,7 +195,6 @@ class EventFragment : DialogFragment(), OnMapReadyCallback {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, eventMessage)
                 type = "text/plain"
-                setPackage("com.whatsapp")
             }
 
             val shareIntent = Intent.createChooser(sendIntent, "Compartilhar em...")
