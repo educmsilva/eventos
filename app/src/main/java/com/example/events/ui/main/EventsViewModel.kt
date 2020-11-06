@@ -29,7 +29,7 @@ class EventsViewModel : ViewModel() {
         EventsWebClient().listarEventos({
             updateRequestEventos(it)
         }, {
-            updateErrorMessage("Erro ao buscar os eventos. Erro: " + it)
+            updateErrorMessage("Erro ao buscar os eventos. Verifique sua conexão com a internet ou tente mais tarde.")
         }
         )
     }
@@ -40,7 +40,7 @@ class EventsViewModel : ViewModel() {
         EventsWebClient().checkIn({
             updateRequestCheckIn(it)
         }, {
-            updateErrorMessage("Erro ao realizar check-in. Erro: " + it)
+            updateErrorMessage("Erro ao realizar check-in. Verifique sua conexão com a internet ou tente mais tarde.")
         },
             checkInRequest
         )
