@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorBackMain"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -19,7 +20,8 @@
         android:id="@+id/mainBottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemIconTint="@color/colorMarfin"
+        android:background="@color/colorDark"
+        app:itemIconTint="@color/colorText"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
