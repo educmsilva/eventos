@@ -29,10 +29,12 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         getData()
+        initSwipeToRefresh()
     }
 
     private fun getData() {
         viewModel.getEventos()
+        swipeToRefresH.isRefreshing = false
     }
 
     private fun initObservers() {
@@ -61,6 +63,12 @@ class EventsFragment : Fragment() {
             if (errorMessage.isNotEmpty()) {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun initSwipeToRefresh() {
+        swipeToRefresH.setOnRefreshListener {
+            getData()
         }
     }
 
